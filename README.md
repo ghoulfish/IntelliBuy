@@ -1,7 +1,7 @@
 # IntelliBuy
 
 ## Env
-  * Java SE 1.8.1
+  * Java SE 1.8.0
   * Maven
   * Tomcat 9.0
 
