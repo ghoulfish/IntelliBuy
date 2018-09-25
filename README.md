@@ -7,3 +7,4 @@
 
 ## Feature
   Hello Intellibuy.
+  localhost:8080/IntelliBuy
