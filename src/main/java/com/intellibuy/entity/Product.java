@@ -2,25 +2,25 @@ package com.intellibuy.entity;
 
 public class Product {
 	
-	private int id;
+	private int productId;
 	private int categoryCode;
 	private String name;
 	private String picUrl;
 	private double price;
 	private int onlineFlag;
 	
-	public Product(int id, String name, double price) {
+	public Product(int productId, String name, double price) {
 		super();
-		this.id = id;
+		this.productId = productId;
 		this.name = name;
 		this.price = price;
 	}
 	
-	public int getId() {
-		return id;
+	public int getProductId() {
+		return productId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 	public int getCategoryCode() {
 		return categoryCode;

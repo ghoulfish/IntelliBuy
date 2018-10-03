@@ -23,4 +23,17 @@ public class LoginService {
 		return CustomerData.getInstance().findAll();
 	}
 
+	public boolean isRegistered(String username) {
+		if ( CustomerData.getInstance().findByUsername(username) != null) {
+			return true;
+		} else {
+			return false;			
+		}
+	}
+
+	public void createNewUser(Customer customer) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -2,14 +2,23 @@ package com.intellibuy.entity;
 
 public class Customer {
 	
-	private int id;
+	private Integer id;
 	private String name;
 	private String phone;
 	private String email;
 	private String username;
 	private String password;
 	
-	public Customer(int id, String name, String username, String password) {
+	public Customer() {
+		super();
+	}
+	
+	public Customer(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+	public Customer(Integer id, String name, String username, String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -33,6 +42,12 @@ public class Customer {
 	}
 	public String getPassword() {
 		return password;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", phone=" + phone + ", email=" + email + ", username="
+				+ username + ", password=" + password + "]";
 	}
 
 }
