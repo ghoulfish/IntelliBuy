@@ -9,5 +9,5 @@
 ## Feature
     Hello Intellibuy.
     Homepage: localhost:8080/IntelliBuy
-    Show products.
+    Show products. Add to cart. Checkout to create order.
     Login check.
