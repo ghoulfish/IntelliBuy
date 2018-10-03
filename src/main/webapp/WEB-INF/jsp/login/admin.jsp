@@ -4,11 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login Successful</title>
+<title>Administration page</title>
 </head>
 <body>
-	<h1>This is a successful login page.</h1>
-	<a href="../product/cart">View your cart</a><br />
-	<a href="/IntelliBuy">Back</a>
+	<h1>This is admin page.</h1>
+	<a href="./">Back</a>
 </body>
 </html>

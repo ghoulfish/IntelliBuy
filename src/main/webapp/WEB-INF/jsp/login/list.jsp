@@ -12,19 +12,19 @@
 	<table border="1">
 		<thead>
 			<tr>
-				<td>Id</td>
 				<td>Name</td>
 				<td>Username</td>
 				<td>Password</td>
+				<td>Role</td>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${customers}" var="cust">
 				<tr>
-					<td><c:out value="${cust.id}" /></td>
 					<td><c:out value="${cust.name}" /></td>
 					<td><c:out value="${cust.username}" /></td>
 					<td><c:out value="${cust.password}" /></td>
+					<td><c:out value="${cust.role}" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>

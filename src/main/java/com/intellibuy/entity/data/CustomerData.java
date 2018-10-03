@@ -19,10 +19,10 @@ public class CustomerData {
 	public CustomerData() {
 		super();
 		CustomerByUsername = new HashMap<>();
-		CustomerByUsername.put("xixi", new Customer(1, "Xixi", "xixi", "123456"));
-		CustomerByUsername.put("dongdong", new Customer(2, "Dongdong", "dongdong", "123456"));
-		CustomerByUsername.put("user", new Customer(3, "User", "user", "123456"));
-		CustomerByUsername.put("admin", new Customer(4, "Admin", "admin", "123456"));
+		CustomerByUsername.put("xixi", new Customer("Xixi", "xixi", "123456", "USER"));
+		CustomerByUsername.put("dongdong", new Customer("Dongdong", "dongdong", "123456", "USER"));
+		CustomerByUsername.put("user", new Customer("User", "user", "123456", "USER"));
+		CustomerByUsername.put("admin", new Customer("Admin", "admin", "123456", "ADMIN"));
 	}
 	
 	public List<Customer> findAll(){
