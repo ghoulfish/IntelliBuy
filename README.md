@@ -9,5 +9,12 @@
 ## Feature
     Hello Intellibuy.
     Homepage: localhost:8080/IntelliBuy
-    Show products. Add to cart. Checkout to create order.
-    Login check.
+    
+    Show products. 
+    Add product to cart. Save in cookie.
+    Checkout to create order.
+    Login.
+    Register.
+    Save login state in cookie.
+    Add user role in session.
+    
