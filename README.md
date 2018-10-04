@@ -4,7 +4,7 @@
   * Java SE 1.8.0
   * Maven
   * Tomcat 9.0
-  * Eclipse JAVA EE IDE Oxygen
+  * Eclipse JAVA EE IDE Photon or higher
 
 ## Feature
     Hello Intellibuy.
