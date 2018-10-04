@@ -28,7 +28,7 @@
 	</table>
 	<form action="../add" method="post">
 		Amount:<input type="number" name="number" value="1"/><br />
-		<input type="hidden" value="${product.productId}" name="id">
+		<input type="hidden" value="${product.productId}" name="productId">
 		<input type="hidden" value="${product.price}" name="price">
 		<input type="hidden" value="${product.name}" name="name">
 		<input type="submit" value="Add to cart"/><br />

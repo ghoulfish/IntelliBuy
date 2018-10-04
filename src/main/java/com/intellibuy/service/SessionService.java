@@ -15,11 +15,11 @@ public class SessionService {
 //	@Autowired
 //	private LoginService loginService;
 	@Autowired
-	private AuthService authService;
+	private LoginService loginService;
 
 	public void updateUserRole(HttpServletRequest request) throws IOException {
-		request.getSession().setAttribute("role", authService.getRole(request));
-		request.getSession().setAttribute("name", authService.getName(request));
+		request.getSession().setAttribute("role", loginService.getRole(request));
+		request.getSession().setAttribute("name", loginService.getName(request));
 	}
 
 }

@@ -18,9 +18,25 @@ import com.intellibuy.entity.data.CustomerData;
 public class LoginService {
 	
 	@Autowired
-	private JsonParser jsonParser;
+	private JsonService jsonService;
 	@Autowired
 	private CookieService cookieService;
+	
+	private List<Customer> _findAll() {
+		return CustomerData.getInstance().findAll();
+	}
+	
+	private Customer _findByUsername(String username) {
+		return CustomerData.getInstance().findByUsername(username);
+	}	
+	
+	public List<Customer> findAll() {
+		return _findAll();
+	}
+	
+	public Customer findByUsername(String username) {
+		return _findByUsername(username);
+	}
 	
 	public boolean checkLogin(String username, String password) {
 		Customer user;
@@ -31,28 +47,19 @@ public class LoginService {
 		}
 	}
 	
-	public boolean checkLogin(Cookie loginCookie) throws IOException {
-		if (loginCookie.getValue().equals("")) {
+	public boolean checkLogin(String cookieValue) throws IOException {
+		if (cookieValue.equals("")) {
 			return false;
 		}
-		CustomerLoginInfo loginInfo = jsonParser.getCustomerLoginInfo(loginCookie);
+		CustomerLoginInfo loginInfo = jsonService.cookieValueToObject(cookieValue, CustomerLoginInfo.class);
 		return checkLogin(loginInfo.getUsername(), loginInfo.getPassword());
 	}
 
-	public List<Customer> findAll() {
-		return CustomerData.getInstance().findAll();
-	}
-	
-	public Customer findByUsername(String username) {
-		return CustomerData.getInstance().findByUsername(username);
-	}
 
 	public boolean isRegistered(String username) {
 		return ( findByUsername(username) != null ) ;
 	}
 	
-	
-
 	public void createNewUser(Customer customer) {
 		// TODO Auto-generated method stub
 		
@@ -64,14 +71,38 @@ public class LoginService {
 		custLogin.setUsername(username);
 		custLogin.setPassword(cust.getPassword());
 		custLogin.setRole(cust.getRole());
-		Cookie loginCookie = jsonParser.getCustomerLoginCookie(custLogin);
-		cookieService.createCookie(response, loginCookie, "/", 60 * 60 * 24 * 7);
+		String cookieValue = jsonService.objectToCookieValue(custLogin);
+		cookieService.createCookie(response, "login", cookieValue, "/", 60 * 60 * 24 * 7);
 		
 		//System.out.println(custLogin);
 	}
 
+	public boolean hasValidLogin(HttpServletRequest request) throws IOException {
+		return (cookieService.getCookieMap(request).get("login") != null ) 
+				&& ( checkLogin(cookieService.getCookieMap(request).get("login").getValue()) );
+	}
+	
+	public String getRole(HttpServletRequest request) throws IOException {
+		if ( hasValidLogin(request) ) {
+			Cookie loginCookie = cookieService.getCookie(request, "login");
+			CustomerLoginInfo custInfo = jsonService.cookieValueToObject(loginCookie.getValue(), CustomerLoginInfo.class);
+			return custInfo.getRole();
+		} else {			
+			return "GUEST";
+		}
+	}
+
+	public String getName(HttpServletRequest request) throws IOException {
+		if ( hasValidLogin(request) ) {
+			Cookie loginCookie = cookieService.getCookie(request, "login");
+			CustomerLoginInfo custInfo = jsonService.cookieValueToObject(loginCookie.getValue(), CustomerLoginInfo.class);
+			return custInfo.getUsername();
+		} else {			
+			return "GUEST";
+		}
+	}
+	
 	public void logout(HttpServletRequest request, HttpServletResponse response) {
 		cookieService.delete(response, cookieService.getCookie(request, "login"));
 	}
-
 }

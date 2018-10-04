@@ -20,14 +20,14 @@
 		<tbody>
 			<c:forEach items="${products}" var="prod">
 				<tr>
-					<td><a href="<c:url value="${prod.productId}/detail"/>"><c:out value="${prod.name}" /></a></td>
+					<td><a href="<c:url value="detail/${prod.productId}"/>"><c:out value="${prod.name}" /></a></td>
 					<td><c:out value="${prod.price}" /></td>
 					<td><c:out value="${prod.productId}" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-	<a href="cart">Checkout</a><br />
+	<a href="cart">Your cart</a><br />
 	<a href="/IntelliBuy">Back</a>
 </body>
 </html>

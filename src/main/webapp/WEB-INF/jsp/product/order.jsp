@@ -22,12 +22,12 @@
 				<tr>
 					<td><c:out value="${prod.name}"></c:out></td>
 					<td><c:out value="${prod.number}"></c:out></td>
-					<td><c:out value="${prod.price}"></c:out></td>
+					<td><c:out value="${prod.price * prod.number}"></c:out></td>
 				</tr>		
 			</tbody>
 		</c:forEach>
 	</table>
 	<a href="pay">Pay Now!</a><br/>
-	<a href="../">Back</a><br/>
+	<a href="cart">Back to cart</a>
 </body>
 </html>

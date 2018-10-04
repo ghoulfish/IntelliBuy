@@ -26,6 +26,7 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
+	@AuthRole(role="GUEST")
 	@RequestMapping(value="login", method={RequestMethod.GET})
 	public ModelAndView loginView() {
 		

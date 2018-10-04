@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h1>This is admin page.</h1>
-	<a href="./">Back</a>
+	<a href="../">Back</a>
 </body>
 </html>

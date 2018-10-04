@@ -15,10 +15,12 @@ public class IndexService {
 	
 	@Autowired
 	private CookieService cookieService;
+	@Autowired
+	private LoginService loginService;
 
 	public void loginByCookie(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Cookie loginCookie;
-		if ( cookieService.hasValidLogin(request) ) {
+		if ( loginService.hasValidLogin(request) ) {
 			loginCookie = cookieService.getCookie(request, "login");
 			cookieService.renewCookie(response, loginCookie, 60 * 60 * 24 * 7);
 		} else {

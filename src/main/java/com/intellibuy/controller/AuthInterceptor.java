@@ -11,7 +11,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.intellibuy.authority.AuthRole;
-import com.intellibuy.service.AuthService;
+import com.intellibuy.service.LoginService;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 	
@@ -22,7 +22,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	}
 	
 	@Autowired
-	private AuthService authService;
+	private LoginService loginService;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -32,13 +32,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			if (authRole == null) { return true; }
 			Set<String> permitRoles = new HashSet<>();
 			addPermitRole(authRole.role(), permitRoles);
-			if ( permitRoles.contains(authService.getRole(request)) ) {
+			if ( permitRoles.contains(loginService.getRole(request)) ) {
 				return true;
 			} else {
-				if (authService.getRole(request).equals("GUEST")) {
-					response.sendRedirect("login");					
+				if (loginService.getRole(request).equals("GUEST")) {
+					response.sendRedirect("/IntelliBuy/login");					
 				} else {
-					response.sendRedirect("./");	
+					response.sendRedirect("/IntelliBuy");	
 				}
 				return false;
 			}
@@ -51,7 +51,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		for(String role: roles) {
 			permitRoles.add(role);
 		}
-		
 	}
 
 
