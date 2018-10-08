@@ -1,7 +1,5 @@
 package com.intellibuy.service;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ public class SessionService {
 	@Autowired
 	private LoginService loginService;
 
-	public void updateUserRole(HttpServletRequest request) throws IOException {
+	public void updateUserRole(HttpServletRequest request) {
 		request.getSession().setAttribute("role", loginService.getRole(request));
 		request.getSession().setAttribute("name", loginService.getName(request));
 	}

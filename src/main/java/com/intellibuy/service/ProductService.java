@@ -6,17 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.intellibuy.entity.Order;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.intellibuy.entity.Product;
 import com.intellibuy.entity.ProductInCart;
-import com.intellibuy.entity.data.ProductData;
 
 @Service
 public class ProductService {
@@ -25,16 +23,18 @@ public class ProductService {
 	private CookieService cookieService;
 	@Autowired
 	private JsonService jsonService;
+	@Autowired
+	private JdbcService jdbcService;
 	
 	public List<Product> findAll() {
-		return ProductData.getInstance().findAll();
+		return jdbcService.findAll(new Product());
 	}
 	
 	public Product findById( int id ) {
-		return ProductData.getInstance().findById(id);
+		return jdbcService.findProductById(id);
 	}
 
-	public String addToCartCookieValue(String cartCookieValue, int id, String name, double price, int number) throws IOException {
+	public String addToCartCookieValue(String cartCookieValue, int id, String name, int price, int number) throws IOException {
 		ProductInCart prod;
 		Map<Integer, ProductInCart> productMap;
 		if ( cartCookieValue.equals("") ) {
@@ -51,7 +51,7 @@ public class ProductService {
 	}
 	
 	public void addProductInCart(HttpServletRequest request, HttpServletResponse response,
-			ProductInCart productInCart) throws IOException {
+			ProductInCart productInCart) {
 		Map<Integer, ProductInCart> productMap;
 		if (cookieService.getCookie(request, "cart") == null) {
 			productMap = new HashMap<>();
@@ -63,40 +63,37 @@ public class ProductService {
 			}
 		}
 		productMap.put(productInCart.getProductId(), productInCart);
-		cookieService.createCookie(response, "cart", jsonService.objectToCookieValue(productMap), "/", 60 * 60 * 7);
+		try {
+			cookieService.createCookie(response, "cart", jsonService.objectToCookieValue(productMap), "/", 60 * 60 * 7);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void deleteProductInCart (HttpServletRequest request, HttpServletResponse response, int productId) throws IOException {
+	public void deleteProductInCart (HttpServletRequest request, HttpServletResponse response, int productId) {
 		String cartCookieValue = cookieService.getCookie(request, "cart").getValue();
 		Map<Integer, ProductInCart> productMap = jsonService.getCartProductMap(cartCookieValue);
 		productMap.remove(productId);
 		if (productMap.isEmpty()) {
 			cookieService.createCookie(response, "cart", "", "/", 0);
 		} else {
-			cookieService.createCookie(response, "cart", jsonService.objectToCookieValue(productMap), "/", 60 * 60 * 7 );
+			try {
+				cookieService.createCookie(response, "cart", jsonService.objectToCookieValue(productMap), "/", 60 * 60 * 7 );
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
-	public List<ProductInCart> getCartProductList(String cartCookieValue) throws IOException {
+	public List<ProductInCart> getCartProductList(String cartCookieValue) {
 		if ( cartCookieValue.equals("") ) {
 			return null;
 		}
 		Map<Integer, ProductInCart> productMap = jsonService.getCartProductMap(cartCookieValue);
-		return new ArrayList<ProductInCart>(productMap.values());
-	}
-
-	public Order createOrder(HttpServletRequest request) throws IOException {
-		for (Cookie cookie: request.getCookies()) {
-			if (cookie.getName().equals("cart")) {
-				List<ProductInCart> productList = getCartProductList(cookie.getValue());
-				Order order = new Order();
-				for (ProductInCart prod: productList) {
-					order.getProducts().add(prod);
-				}
-				return order;
-			}
+		for (ProductInCart prod: productMap.values()) {
+			System.out.println(prod);
 		}
-		return null;
+		return new ArrayList<ProductInCart>(productMap.values());
 	}
 	
 	public void renewCartCookie(String newCookieValue, HttpServletResponse response) {

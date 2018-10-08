@@ -1,38 +1,47 @@
 package com.intellibuy.entity;
 
-public class ProductInCart {
+public class ProductInCart extends EntityToDB{
 	
-	private int orderId;
-	private int productId;
+	private Integer id;
+	private Integer orderId;
+	private Integer productId;
 	private String name;
-	private int number;
-	private double price;
+	private Integer number;
+	private Integer price;
 	
 	public ProductInCart() {
 		super();
 	}
 
-	public ProductInCart(int productId, String name, int number, double price) {
+	public ProductInCart(int productId, String name, int number, int price) {
 		super();
 		this.productId = productId;
 		this.name = name;
 		this.number = number;
 		this.price = price;
 	}
+	
+	public Integer getId() {
+		return id;
+	}
 
-	public int getOrderId() {
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(int orderId) {
+	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}
 
-	public int getProductId() {
+	public Integer getProductId() {
 		return productId;
 	}
 
-	public void setProductId(int productId) {
+	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
 
@@ -44,19 +53,19 @@ public class ProductInCart {
 		this.name = name;
 	}
 
-	public int getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 
-	public double getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
@@ -65,4 +74,6 @@ public class ProductInCart {
 		return "ProductInCart [orderId=" + orderId + ", productId=" + productId + ", name=" + name + ", number="
 				+ number + ", price=" + price + "]";
 	}
+	
+	
 }

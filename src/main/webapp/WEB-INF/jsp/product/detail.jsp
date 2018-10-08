@@ -21,14 +21,14 @@
 		<tbody>
 			<tr>
 				<td><c:out value="${product.name}" /></td>
-				<td><c:out value="${product.productId}" /></td>
-				<td><c:out value="${product.price}" /></td>
+				<td><c:out value="${product.id}" /></td>
+				<td><c:out value="${product.price/100}" /></td>
 			</tr>
 		</tbody>
 	</table>
 	<form action="../add" method="post">
 		Amount:<input type="number" name="number" value="1"/><br />
-		<input type="hidden" value="${product.productId}" name="productId">
+		<input type="hidden" value="${product.id}" name="productId">
 		<input type="hidden" value="${product.price}" name="price">
 		<input type="hidden" value="${product.name}" name="name">
 		<input type="submit" value="Add to cart"/><br />

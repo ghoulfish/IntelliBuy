@@ -11,9 +11,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CookieService {
+	
 
 	public  Map<String, Cookie> getCookieMap (HttpServletRequest request){
 		Map<String, Cookie> cookieMap = new HashMap<>();
+		if (request.getCookies() == null) {
+			return null;
+		}
 		for (Cookie cookie: request.getCookies()) {
 			cookieMap.put(cookie.getName(),	cookie);
 		}
@@ -21,6 +25,7 @@ public class CookieService {
 	}
 	
 	public Cookie getCookie(HttpServletRequest request, String name) {
+		if (getCookieMap(request) == null) {return null;}
 		return getCookieMap(request).get(name);
 	}
 
@@ -51,7 +56,5 @@ public class CookieService {
 		response.addCookie(cookie);
 		
 	}
-
-
 
 }

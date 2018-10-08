@@ -23,7 +23,7 @@
 			<tr>
 				<td><c:out value="${product.name}" /></td>
 				<td><c:out value="${product.productId}" /></td>
-				<td><c:out value="${product.price}" /></td>
+				<td><c:out value="${product.price/100}" /></td>
 				<td><c:out value="${product.number }"></c:out>
 			</tr>
 		</tbody>

@@ -1,10 +1,11 @@
 # IntelliBuy
 
 ## Env
-  * Java SE 1.8.0
+  * JDK 1.8.0
   * Maven
-  * Tomcat 9.0
-  * Eclipse JAVA EE IDE Photon or higher
+  * Tomcat 9.0 and Servlet Spec 4.0
+  * Eclipse JAVA EE IDE Photon or later version
+  * MySql 8.0.11
 
 ## Feature
     Hello Intellibuy.
@@ -18,3 +19,11 @@
     Save login state in cookie.
     Add user role in session.
     
+    Connect database.
+    Configure your database connection in com.intellibuy.service.AuthDataSource.java
+    There is a init button at IndexController. Initialization tables in database and create ADMIN user.
+    Default admin: username:admin, password:123456.
+    Use reflection to create tables.
+    Save new registered user.
+    When checkout, save order.
+    Login as ADMIN, you can add now products, modify products, check all orders.

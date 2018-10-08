@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1>This is the order page.</h1>
+	<h3><c:out value="Your order ID is ${order.id}"></c:out></h3>
 	<table>
 		<thead>
 			<tr>
@@ -22,12 +23,12 @@
 				<tr>
 					<td><c:out value="${prod.name}"></c:out></td>
 					<td><c:out value="${prod.number}"></c:out></td>
-					<td><c:out value="${prod.price * prod.number}"></c:out></td>
+					<td><c:out value="${prod.price / 100 * prod.number}"></c:out></td>
 				</tr>		
 			</tbody>
 		</c:forEach>
 	</table>
-	<a href="pay">Pay Now!</a><br/>
+	<a href="pay/${order.id}">Pay Now!</a><br/>
 	<a href="cart">Back to cart</a>
 </body>
 </html>

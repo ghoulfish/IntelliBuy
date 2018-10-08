@@ -1,31 +1,39 @@
 package com.intellibuy.entity;
 
-public class Product {
+import java.time.LocalDateTime;
+
+public class Product extends EntityToDB{
 	
-	private int productId;
-	private int categoryCode;
+	private Integer id;
+	private Integer categoryCode;
 	private String name;
 	private String picUrl;
-	private double price;
-	private int onlineFlag;
+	private Integer price;
+	private Integer stock;
+	private Integer onlineFlag;
+	private LocalDateTime createSince;
+	private LocalDateTime updateSince;
 	
-	public Product(int productId, String name, double price) {
+	public Product() {
 		super();
-		this.productId = productId;
+	}
+	public Product(String name, int price, int stock) {
+		super();
 		this.name = name;
 		this.price = price;
+		this.stock = stock;
 	}
-	
-	public int getProductId() {
-		return productId;
+
+	public Integer getId() {
+		return id;
 	}
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public int getCategoryCode() {
+	public Integer getCategoryCode() {
 		return categoryCode;
 	}
-	public void setCategoryCode(int categoryCode) {
+	public void setCategoryCode(Integer categoryCode) {
 		this.categoryCode = categoryCode;
 	}
 	public String getName() {
@@ -40,17 +48,41 @@ public class Product {
 	public void setPicUrl(String picUrl) {
 		this.picUrl = picUrl;
 	}
-	public double getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
-	public int getOnlineFlag() {
+	public Integer getStock() {
+		return stock;
+	}
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+	public Integer getOnlineFlag() {
 		return onlineFlag;
 	}
-	public void setOnlineFlag(int onlineFlag) {
+	public void setOnlineFlag(Integer onlineFlag) {
 		this.onlineFlag = onlineFlag;
 	}
-
+	
+	public LocalDateTime getCreateSince() {
+		return createSince;
+	}
+	public void setCreateSince(LocalDateTime createSince) {
+		this.createSince = createSince;
+	}
+	public LocalDateTime getUpdateSince() {
+		return updateSince;
+	}
+	public void setUpdateSince(LocalDateTime updateSince) {
+		this.updateSince = updateSince;
+	}
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", categoryCode=" + categoryCode + ", name=" + name + ", picUrl=" + picUrl
+				+ ", price=" + price + ", stock=" + stock + ", onlineFlag=" + onlineFlag + ", createSince="
+				+ createSince + ", updateSince=" + updateSince + "]";
+	}
 }

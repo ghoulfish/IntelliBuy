@@ -25,7 +25,7 @@
 						<tr>
 							<td><c:out value="${prod.name}"></c:out></td>
 							<td><c:out value="${prod.number}"></c:out></td>
-							<td><c:out value="${prod.price * prod.number}"></c:out></td>
+							<td><c:out value="${prod.price / 100 * prod.number}"></c:out></td>
 							<td><form action='<c:url value="delete/${prod.productId}"></c:url>' method="post">
 								<input type="submit" value="Delete"/>
 							</form></td>
