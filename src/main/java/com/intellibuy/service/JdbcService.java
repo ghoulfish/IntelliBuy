@@ -238,6 +238,14 @@ public class JdbcService {
 			return orderList.get(0);
 		}
 	}
+	
+	public List<Order> findOrderByCustomerId(Integer customerId) {
+		List<Order> orders = find(new Order(), "customer_id", customerId.toString());
+		for (Order order:orders) {
+			order.setProducts(findOrderlineByOrderId(order.getId()));
+		}
+		return orders;
+	}
 
 	public void updateOrderPayment(Integer id, boolean paid) {
 		Order order = findOrderById(id);

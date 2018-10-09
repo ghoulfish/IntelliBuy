@@ -75,7 +75,7 @@ public class AdminController {
 		return view;
 	}
 	
-	@RequestMapping("/admin/modify/check")
+	@RequestMapping(value="/admin/modify/check", method=RequestMethod.POST)
 	public ModelAndView modifyCheck(
 			@ModelAttribute Product productNew,
 			BindingResult res,
