@@ -1,4 +1,4 @@
-package com.intellibuy.controller;
+package com.intellibuy.service;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +11,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.intellibuy.authority.AuthRole;
-import com.intellibuy.service.LoginService;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 	
@@ -28,7 +27,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		if (handler instanceof HandlerMethod) {
-			AuthRole authRole = ((HandlerMethod) handler).getMethodAnnotation(AuthRole.class);
+			AuthRole authRoleClass = ((HandlerMethod) handler).getBeanType().getAnnotation(AuthRole.class);
+			AuthRole authRoleMethod = ((HandlerMethod) handler).getMethodAnnotation(AuthRole.class);
+			AuthRole authRole = authRoleMethod == null? authRoleClass: authRoleMethod;
 			if (authRole == null) { return true; }
 			Set<String> permitRoles = new HashSet<>();
 			addPermitRole(authRole.role(), permitRoles);

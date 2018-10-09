@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.intellibuy.controller.AuthInterceptor;
+import com.intellibuy.service.AuthInterceptor;
 
 @EnableWebMvc
 @Configuration
