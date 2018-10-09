@@ -96,6 +96,7 @@ public class ProductController {
 		ModelAndView view = new ModelAndView("product/pay");
 		if (isPaid) {
 			orderService.updateOrderPayment(Integer.parseInt(orderId), isPaid);
+			jdbcService.decreaseProductStock(Integer.parseInt(orderId));
 		}
 		return view;
 	}

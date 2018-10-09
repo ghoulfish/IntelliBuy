@@ -239,9 +239,9 @@ public class JdbcService {
 		}
 	}
 
-	public void updateOrderPayment(Integer id, boolean isPaid) {
+	public void updateOrderPayment(Integer id, boolean paid) {
 		Order order = findOrderById(id);
-		order.setPaid(isPaid);
+		order.setPaid(paid);
 		updateDatabase(order, "id", id.toString());
 	}
 
@@ -270,6 +270,14 @@ public class JdbcService {
 
 	private List<ProductInCart> findOrderlineByOrderId(Integer id) {
 		return find(new ProductInCart(), "orderId", id.toString());
+	}
+
+	public void decreaseProductStock(Integer orderId) {
+		for (ProductInCart prod: find(new ProductInCart(), "orderId", orderId.toString())) {
+			Product p = findProductById(prod.getProductId());
+			p.setStock(p.getStock()-prod.getNumber());
+			updateProduct(p);
+		}
 	}
 
 }
