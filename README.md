@@ -27,3 +27,8 @@
     Save new registered user.
     When checkout, save order.
     Login as ADMIN, you can add now products, modify products, check all orders.
+    
+    Security strategy:
+	1.  Front-end: Javascript web api SubtleCrypto.encrypt() to encrypt password.
+	2.  Back-end: Bcrypt to convert encrypted password and store in database.
+	3.  CSRF token.

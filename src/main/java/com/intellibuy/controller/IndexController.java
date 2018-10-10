@@ -35,13 +35,17 @@ public class IndexController {
 
 	@RequestMapping(value="/init", method=RequestMethod.POST)
 	public ModelAndView init() {
-		indexService.init();
+		if (isInit) {
+			indexService.init();
+		}
 		return new ModelAndView("redirect:/");
 	}
 	
 	@RequestMapping(value="/destroy", method=RequestMethod.POST)
 	public ModelAndView destroy() {
-		indexService.destroy();
+		if (isInit) {
+			indexService.destroy();
+		}
 		return new ModelAndView("redirect:/");
 	}
 

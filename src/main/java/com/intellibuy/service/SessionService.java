@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class SessionService {
 	
-//	@Autowired
-//	private CookieService cookieService;
-//	@Autowired
-//	private LoginService loginService;
 	@Autowired
 	private LoginService loginService;
 

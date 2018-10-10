@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Welcome to IntelliBuy</title>
+	<title>Welcome to IntelliBuy</title>
 </head>
 <body>
 	<h1>Hello, everyone!</h1>
@@ -32,5 +32,6 @@
 			<input type="submit" value="Drop all tables" />
 		</form>
 	</c:if>
+	
 </body>
 </html>
