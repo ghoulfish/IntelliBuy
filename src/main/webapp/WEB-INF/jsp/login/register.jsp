@@ -5,6 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<script type="text/javascript" src="/IntelliBuy/resources/statics/js/require.js" data-main="/IntelliBuy/resources/statics/js/main.js"></script>
 	<script type="text/javascript" src="/IntelliBuy/resources/statics/js/sha-256.js"></script>
 	<link rel="stylesheet" type="text/css" href="/IntelliBuy/resources/statics/css/registerForm.css"/>
 	<title>Register</title>
@@ -12,11 +13,11 @@
 </head>
 <body>
 	<h1>This is register page.</h1>
-	<form action="register/check" method="post" id="registerForm">
+	<form action="register/check" method="post" id="registerForm" onsubmit="return alarm();">
 		Username:<input type="text" name="username"/><br/>
 		Password:<input type="password" name="password" id="password"/><br />
 		Email:<input type="text" name="email"/><br />
-		<input type="submit" value="Submit" />
+		<input type="submit" value="Submit" onclick="checkPassword()"/>
 	</form>
 	<div id="message">
 	  <h3>Password must contain the following:</h3>
@@ -85,21 +86,29 @@
 		    length.classList.add("invalid");
 		  }
 		}
-		function checkPassword(event) {
+		function checkPassword() {
 			if (letter.classList.value === "invalid" || capital.classList.value === "invalid" 
 					|| number.classList.value === "invalid" || length.classList.value === "invalid") {
-				event.preventDefault();
+				return false;
 			} else {
 				encryptPassword();
+				return true;
 			}
 		}
-		function encryptPassword() {       
-	        var encrypt = SHA256;
-	        var password = document.getElementById("password").value;
-	        document.getElementById("password").value = encrypt(password);
+		function encryptPassword() {
+			require(["bcrypt"], function(bcrypt) {
+	        	var password = document.getElementById("password").value;
+		        var salt = bcrypt.genSaltSync(10);
+		        hash = bcrypt.hashSync(password, salt);
+				document.getElementById("password").value = hash;
+			});
 	    }
-		var registerForm = document.getElementById("registerForm");
-		registerForm.addEventListener("submit", checkPassword, false);
+		function alarm() {
+			return false;
+		}
+		//var registerForm = document.getElementById("registerForm");
+		//registerForm.addEventListener("submit", checkPassword, false);
 	</script>
+	<!-- <button onclick=encryptPassword()>Button</button> -->
 </body>
 </html>
