@@ -4,17 +4,17 @@ public class AuthDataSource extends AbstractAuthDataSource{
 
 	@Override
 	public String yourUrl() {
-		return "";
+		return "jdbc:mysql://localhost:3306/Conn1?useSSL=false&serverTimezone=America/New_York";
 	}
 
 	@Override
 	public String yourUsername() {
-		return "";
+		return "root";
 	}
 
 	@Override
 	public String yourPassword() {
-		return "";
+		return "ZCXzcx123";
 	}
 
 	@Override
