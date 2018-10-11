@@ -1,6 +1,8 @@
 package com.intellibuy.entity;
 
-public class Customer {
+import java.time.LocalDate;
+
+public class Customer extends EntityToDB{
 	
 	private Integer id;
 	private String name;
@@ -9,9 +11,24 @@ public class Customer {
 	private String username;
 	private String password;
 	private String role;
+	private LocalDate userSince;
+	private LocalDate notVisitSince;
 	
 	public Customer() {
 		super();
+	}
+	
+	public Customer(Customer cust) {
+		super();
+		this.username = cust.getUsername();
+		this.password = cust.getPassword();
+		this.email = cust.getEmail();
+		this.role = cust.getRole();
+		if (cust.getRole() != "ADMIN") {
+			this.role = "USER";	
+		}
+		this.userSince = LocalDate.now();
+		this.notVisitSince = LocalDate.now();
 	}
 	
 	public Customer(String username, String password, String role) {
@@ -80,6 +97,22 @@ public class Customer {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public LocalDate getUserSince() {
+		return userSince;
+	}
+
+	public void setUserSince(LocalDate userSince) {
+		this.userSince = userSince;
+	}
+
+	public LocalDate getNotVisitSince() {
+		return notVisitSince;
+	}
+
+	public void setNotVisitSince(LocalDate notVisitSince) {
+		this.notVisitSince = notVisitSince;
 	}
 
 	@Override

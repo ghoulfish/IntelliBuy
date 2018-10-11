@@ -31,16 +31,26 @@ public class JsonService {
 		return Base64.getEncoder().encode(json);
 	}
 	
-	public <T> T cookieValueToObject(String cookieValue, Class<T> tClass) throws IOException {
-		return objectMapper.readValue(cookieValueToJson(cookieValue), tClass);
+	public <T> T cookieValueToObject(String cookieValue, Class<T> tClass) {
+		try {
+			return objectMapper.readValue(cookieValueToJson(cookieValue), tClass);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public <T> String objectToCookieValue(T obj) throws JsonProcessingException {
 		return new String(jsonToCookieValue(objectMapper.writeValueAsBytes(obj)));
 	}
 	
-	public Map<Integer, ProductInCart> getCartProductMap(String cartCookieValue) throws IOException {
-		return objectMapper.readValue(cookieValueToJson(cartCookieValue), new TypeReference<Map<Integer, ProductInCart>>(){});
+	public Map<Integer, ProductInCart> getCartProductMap(String cartCookieValue)  {
+		try {
+			return objectMapper.readValue(cookieValueToJson(cartCookieValue), new TypeReference<Map<Integer, ProductInCart>>(){});
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 

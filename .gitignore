@@ -23,3 +23,6 @@
 hs_err_pid*
 /build/
 /target/
+
+# Database connection information
+AuthDataSource.java

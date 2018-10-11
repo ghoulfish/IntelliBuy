@@ -29,6 +29,9 @@ public class ServletConfig implements WebMvcConfigurer {
 		return new AuthInterceptor();
 	}
 	
+	//Create #AuthDataSource extends #AbstractAuthDataSource with your own url, username, password, and driverClassName.
+
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		WebMvcConfigurer.super.addInterceptors(registry);

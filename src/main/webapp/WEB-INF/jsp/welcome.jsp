@@ -12,7 +12,7 @@
 	<a href="product/list">Product list</a><br />
 	<c:choose>
 		<c:when test="${role == 'GUEST'}">
-			<a href="login">Login</a><br />
+			<a href="login/">Login</a><br />
 		</c:when>
 		<c:otherwise>
 			<a href="login/welcome"><c:out value="Welcome, ${name}" ></c:out></a><br />
@@ -20,7 +20,17 @@
 		</c:otherwise>
 	</c:choose>
 	<c:if test="${role == 'ADMIN' }">
-		<a href="login/admin">Admin page</a>
+		<a href="admin/">Admin page</a>
+	</c:if>
+	<c:if test="${isInit}">
+		<p>Set isInit to false after initialization</p>
+		<p>Please set remove /init and /destroy request mapping if no more need</p>
+		<form action="./init" method="post">
+			<input type="submit" value="Initialize all tables"/>
+		</form>
+		<form action="./destroy" method="post">
+			<input type="submit" value="Drop all tables" />
+		</form>
 	</c:if>
 </body>
 </html>

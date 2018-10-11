@@ -14,15 +14,15 @@
 			<tr>
 				<td>Name</td>
 				<td>Price</td>
-				<td>Id</td>
+				<td>Stock</td>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${products}" var="prod">
 				<tr>
-					<td><a href="<c:url value="detail/${prod.productId}"/>"><c:out value="${prod.name}" /></a></td>
-					<td><c:out value="${prod.price}" /></td>
-					<td><c:out value="${prod.productId}" /></td>
+					<td><a href="<c:url value="detail/${prod.id}"/>"><c:out value="${prod.name}" /></a></td>
+					<td><c:out value="${prod.price/100}" /></td>
+					<td><c:out value="${prod.stock}" /></td>
 				</tr>
 			</c:forEach>
 		</tbody>
