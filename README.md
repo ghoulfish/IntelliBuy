@@ -3,8 +3,8 @@
 ## Env
   * JDK 1.8.0
   * Maven
-  * Tomcat 9.0 and Servlet Spec 4.0
-  * Eclipse JAVA EE IDE Photon or later version
+  * Tomcat 9.0 and Servlet **3.1**
+  * Eclipse JAVA EE IDE **Oxygen** or newer
   * MySql 8.0.11
 
 ## Feature
