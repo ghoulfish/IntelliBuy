@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.intellibuy.authority.AuthRole;
 import com.intellibuy.entity.Customer;
+import com.intellibuy.service.JdbcService;
 import com.intellibuy.service.LoginService;
 
 @Controller
@@ -21,6 +22,8 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	private JdbcService jdbcService;
 
 	@AuthRole(role="GUEST")
 	@RequestMapping(value="login/", method={RequestMethod.GET})
@@ -46,6 +49,7 @@ public class LoginController {
 		}
 	}
 	
+	@AuthRole(role={"USER", "ADMIN"})
 	@RequestMapping(value="login/welcome")
 	public ModelAndView loginWelcomeView() {
 		ModelAndView view = new ModelAndView("login/welcome");
@@ -59,6 +63,7 @@ public class LoginController {
 		return view;
 	}
 	
+	@AuthRole(role="GUEST")
 	@RequestMapping("login/register")
 	public ModelAndView loginRegister() {
 		ModelAndView view = new ModelAndView("login/register");
@@ -80,6 +85,16 @@ public class LoginController {
 			loginService.saveLoginCookie(request, response, customer.getUsername());
 			return new ModelAndView("redirect:/login/welcome");
 		}
+	}
+	
+	@AuthRole(role= {"USER", "ADMIN"})
+	@RequestMapping("login/orders")
+	public ModelAndView yourOrders(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView view = new ModelAndView("login/orders");
+		String username = loginService.getName(request);
+		Integer customerId = jdbcService.findByUsername(username).getId();
+		view.addObject("orders", jdbcService.findOrderByCustomerId(customerId));
+		return view;
 	}
 	
 	@RequestMapping("logout")

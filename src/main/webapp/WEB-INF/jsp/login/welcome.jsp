@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h1>This is a successful login page.</h1>
+	<a href="./orders">View your orders</a><br />
 	<a href="../product/cart">View your cart</a><br />
 	<a href="/IntelliBuy">Back</a>
 </body>

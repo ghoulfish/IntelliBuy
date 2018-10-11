@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>This is modify page.</h1>
-	<form action="./check">
+	<form action="./check" method="post">
 		<table border="1">
 			<thead>
 				<tr>
