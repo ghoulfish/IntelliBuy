@@ -3,8 +3,8 @@
 ## Env
   * JDK 1.8.0
   * Maven
-  * Tomcat 9.0 and Servlet Spec 4.0
-  * Eclipse JAVA EE IDE Photon or later version
+  * Tomcat 9.0 and Servlet **3.1**
+  * Eclipse JAVA EE IDE **Oxygen** or newer
   * MySql 8.0.11
 
 ## Feature
@@ -27,3 +27,8 @@
     Save new registered user.
     When checkout, save order.
     Login as ADMIN, you can add now products, modify products, check all orders.
+    
+    Security strategy:
+	1.  Front-end: Javascript web api SubtleCrypto.encrypt() to encrypt password.
+	2.  Back-end: Bcrypt to convert encrypted password and store in database.
+	3.  CSRF token.

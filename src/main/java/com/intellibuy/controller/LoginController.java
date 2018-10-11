@@ -20,6 +20,7 @@ import com.intellibuy.service.LoginService;
 @Controller
 public class LoginController {
 	
+	private final boolean saveUser = false;
 	@Autowired
 	private LoginService loginService;
 	@Autowired
@@ -76,9 +77,13 @@ public class LoginController {
 			HttpServletResponse response,
 			@ModelAttribute Customer customer, 
 			RedirectAttributes reAttr) {
+		if (!saveUser) {
+			System.out.println(customer);
+			return new ModelAndView("redirect:/login/register");
+		}
 		if (loginService.isRegistered(customer.getUsername())) {
 			reAttr.addFlashAttribute("err_msg", "Username: " + customer.getUsername() + " is used.");
-			return new ModelAndView("redirect:/login/register/");
+			return new ModelAndView("redirect:/login/register");
 		} else {
 			Customer cust = new Customer(customer);
 			loginService.createNewUser(cust);
