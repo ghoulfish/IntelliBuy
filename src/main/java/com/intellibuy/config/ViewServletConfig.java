@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -14,7 +16,7 @@ import com.intellibuy.service.AuthInterceptor;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages= {"com.intellibuy.controller", "com.intellibuy.service"})
-public class ServletConfig implements WebMvcConfigurer {
+public class ViewServletConfig implements WebMvcConfigurer {
 	
 	@Bean
 	public ViewResolver viewResolver() {
@@ -29,13 +31,20 @@ public class ServletConfig implements WebMvcConfigurer {
 		return new AuthInterceptor();
 	}
 	
-	//Create #AuthDataSource extends #AbstractAuthDataSource with your own url, username, password, and driverClassName.
-
-	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		WebMvcConfigurer.super.addInterceptors(registry);
 		registry.addInterceptor(authInterceptor());
 	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+	
+	@Override
+	public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.setUseTrailingSlashMatch(false);
+    }
 
 }

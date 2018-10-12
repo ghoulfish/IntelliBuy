@@ -288,4 +288,13 @@ public class JdbcService {
 		}
 	}
 
+	public String getPassword(String username) {
+		List<Customer> customers = find(new Customer(), "username", username);
+		if (customers.isEmpty()) {
+			return null;			
+		} else {
+			return customers.get(0).getPassword();
+		}
+	}
+
 }

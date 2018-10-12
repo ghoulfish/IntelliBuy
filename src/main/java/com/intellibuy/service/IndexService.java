@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.intellibuy.authority.BCrypt;
 import com.intellibuy.entity.Customer;
 
 @Service
@@ -31,7 +32,9 @@ public class IndexService {
 
 	public void init() {
 		jdbcService.init();
-		Customer cust = new Customer("admin", "123456", "ADMIN");
+		String salt = BCrypt.gensalt(10);
+		String hash = BCrypt.hashpw("123456", salt);
+		Customer cust = new Customer("admin", hash, "ADMIN");
 		Customer customer = new Customer(cust);
 		loginService.createNewUser(customer);
 	}
