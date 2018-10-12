@@ -27,3 +27,7 @@
     Save new registered user.
     When checkout, save order.
     Login as ADMIN, you can add now products, modify products, check all orders.
+    
+    Security strategy:
+	1.  When registration, bcrypt method to encrypt password by Javascript.
+	2.  When login, get password from database and compare by Javascript.

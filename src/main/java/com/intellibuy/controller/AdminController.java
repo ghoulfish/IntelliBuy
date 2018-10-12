@@ -22,7 +22,7 @@ public class AdminController {
 	@Autowired
 	private JdbcService jdbcService;
 	
-	@RequestMapping(value = {"/admin", "/admin/index"})
+	@RequestMapping(value = {"/admin/", "/admin/index"})
 	public ModelAndView adminWelcomeView() {
 		ModelAndView view = new ModelAndView("admin/welcome");
 		return view;
