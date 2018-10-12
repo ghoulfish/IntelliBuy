@@ -13,12 +13,12 @@
 </head>
 <body>
 	<h1>This is register page.</h1>
-	<form action="register/check" method="post" id="registerForm" onsubmit="return alarm();">
+	<form action="register/check" method="post" id="registerForm" >
 		Username:<input type="text" name="username"/><br/>
 		Password:<input type="password" name="password" id="password"/><br />
 		Email:<input type="text" name="email"/><br />
-		<input type="submit" value="Submit" onclick="checkPassword()"/>
 	</form>
+	<button onclick="checkPassword()">Submit</button>
 	<div id="message">
 	  <h3>Password must contain the following:</h3>
 	  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
@@ -86,14 +86,18 @@
 		    length.classList.add("invalid");
 		  }
 		}
+		document.onkeydown = function(e){
+			if ((e||event).keyCode === 13){
+				checkPassword();
+			}
+		}
 		function checkPassword() {
 			if (letter.classList.value === "invalid" || capital.classList.value === "invalid" 
 					|| number.classList.value === "invalid" || length.classList.value === "invalid") {
-				return false;
 			} else {
 				encryptPassword();
-				return true;
 			}
+			return false;
 		}
 		function encryptPassword() {
 			require(["bcrypt"], function(bcrypt) {
@@ -101,14 +105,9 @@
 		        var salt = bcrypt.genSaltSync(10);
 		        hash = bcrypt.hashSync(password, salt);
 				document.getElementById("password").value = hash;
+				setTimeout(document.getElementById("registerForm").submit(),0);
 			});
 	    }
-		function alarm() {
-			return false;
-		}
-		//var registerForm = document.getElementById("registerForm");
-		//registerForm.addEventListener("submit", checkPassword, false);
 	</script>
-	<!-- <button onclick=encryptPassword()>Button</button> -->
 </body>
 </html>

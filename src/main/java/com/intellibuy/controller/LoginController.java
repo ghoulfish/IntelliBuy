@@ -1,5 +1,7 @@
 package com.intellibuy.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +22,7 @@ import com.intellibuy.service.LoginService;
 @Controller
 public class LoginController {
 	
-	private final boolean saveUser = false;
+	private final boolean saveUser = true;
 	@Autowired
 	private LoginService loginService;
 	@Autowired
@@ -29,25 +31,29 @@ public class LoginController {
 	@AuthRole(role="GUEST")
 	@RequestMapping(value="login/", method={RequestMethod.GET})
 	public ModelAndView loginView() {
-		
 		ModelAndView view = new ModelAndView("login/login");
 		return view;
+	}
+	
+	@RequestMapping(value="login/getpassword", method={RequestMethod.GET})
+	public void getpassword(@RequestParam("username") String username, HttpServletResponse response) {
+		String password = jdbcService.getPassword(username);
+		System.out.println(username + ", " + password);
+		try {
+			response.getWriter().print(password);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//return new ModelAndView("login/login");
 	}
 	
 	@RequestMapping(value="login/check", method=RequestMethod.POST)
 	public ModelAndView loginCheck(
 			@RequestParam("username") String username, 
-			@RequestParam("password") String password,
 			HttpServletRequest request,
-			HttpServletResponse response,
-			RedirectAttributes reAttr) {
-		if (loginService.checkLogin(username, password)) {
-			loginService.saveLoginCookie(request, response, username);
-			return new ModelAndView("redirect:/login/welcome");
-		} else {
-			reAttr.addFlashAttribute("err_msg", "Username or password is valid, please try again!");
-			return new ModelAndView("redirect:/login");
-		}
+			HttpServletResponse response) {
+		loginService.saveLoginCookie(request, response, username);
+		return new ModelAndView("redirect:/login/welcome");
 	}
 	
 	@AuthRole(role={"USER", "ADMIN"})
@@ -99,6 +105,13 @@ public class LoginController {
 		String username = loginService.getName(request);
 		Integer customerId = jdbcService.findByUsername(username).getId();
 		view.addObject("orders", jdbcService.findOrderByCustomerId(customerId));
+		return view;
+	}
+	
+	@AuthRole(role= {"USER", "ADMIN"})
+	@RequestMapping("login/profile")
+	public ModelAndView profileView() {
+		ModelAndView view = new ModelAndView("lobin/profile");
 		return view;
 	}
 	

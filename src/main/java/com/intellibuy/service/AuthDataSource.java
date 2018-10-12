@@ -4,7 +4,7 @@ public class AuthDataSource extends AbstractAuthDataSource{
 
 	@Override
 	public String yourUrl() {
-		return "jdbc:mysql://localhost:3306/Conn1?useSSL=false&serverTimezone=America/New_York";
+		return "jdbc:mysql://localhost:3306/IntelliBuy?useSSL=false&serverTimezone=America/New_York";
 	}
 
 	@Override
