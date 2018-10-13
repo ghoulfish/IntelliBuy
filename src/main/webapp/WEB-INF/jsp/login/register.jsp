@@ -6,7 +6,6 @@
 <head>
 	<meta charset="UTF-8">
 	<script type="text/javascript" src="/IntelliBuy/resources/statics/js/require.js" data-main="/IntelliBuy/resources/statics/js/main.js"></script>
-	<script type="text/javascript" src="/IntelliBuy/resources/statics/js/sha-256.js"></script>
 	<link rel="stylesheet" type="text/css" href="/IntelliBuy/resources/statics/css/registerForm.css"/>
 	<title>Register</title>
 	

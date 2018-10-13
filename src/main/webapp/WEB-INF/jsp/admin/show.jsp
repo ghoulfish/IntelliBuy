@@ -4,12 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Show products</title>
+	<meta charset="UTF-8">
+	<title>Show products</title>
+	<script type="text/javascript" src="/IntelliBuy/resources/statics/js/require.js" data-main="/IntelliBuy/resources/statics/js/main.js"></script>
+	
 </head>
 <body>
 	<h1>This is all exist products.</h1>
-	<table border="1">
+	<table border="1" id="prod_list">
 		<thead>
 			<tr>
 				<td>ID</td>
@@ -24,7 +26,7 @@
 		</thead>
 		<tbody>
 			<c:forEach items="${products}" var="prod">
-				<tr>
+				<tr style="display: none">
 					<td><c:out value="${prod.id}"></c:out></td>
 					<td><c:out value="${prod.name}" /></td>
 					<td><c:out value="${prod.price}" /></td>
@@ -37,6 +39,10 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<a onclick="previous()">Previous</a>
+	<a onclick="next()">Next</a>
+	<input type="text" id="to_page_no"/>
+	<button onclick="toPage()">Go</button><br/>
 	<c:if test="${err_msg != null }">
 		<c:out value="${err_msg }"></c:out><br/>
 	</c:if>
@@ -44,5 +50,26 @@
 		<c:out value="${msg }"></c:out><br/>
 	</c:if>
 	<a href=".">Back</a>
+	<script type="text/javascript">
+		var page;
+		function display(pageNo){
+			require(["table-split-page"], function(table){
+				if (table.toPage(pageNo, document.getElementById("prod_list"))){
+					page=pageNo;
+				}
+			})
+		}
+		function toPage() {
+			display(document.getElementById("to_page_no").value);
+		}
+		function next(){
+			display(page+1);
+		}
+		function previous(){
+			display(page-1);
+		}
+		display(1);
+		
+	</script>
 </body>
 </html>
