@@ -37,7 +37,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 				return true;
 			} else {
 				if (loginService.getRole(request).equals("GUEST")) {
-					response.sendRedirect("/IntelliBuy/login");					
+					response.sendRedirect("/IntelliBuy/login/");					
 				} else {
 					response.sendRedirect("/IntelliBuy");	
 				}

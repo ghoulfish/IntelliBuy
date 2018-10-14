@@ -39,6 +39,7 @@ public class CookieService {
 		Cookie cookie = new Cookie(name, value);
 		cookie.setPath(path);
 		cookie.setMaxAge(expirySecond);
+		cookie.setHttpOnly(true);
 		response.addCookie(cookie);
 	}
 

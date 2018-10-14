@@ -10,7 +10,7 @@
 <body>
 	<h1>This is the order page.</h1>
 	<h3><c:out value="Your order ID is ${order.id}"></c:out></h3>
-	<table>
+	<table id="order_table">
 		<thead>
 			<tr>
 				<td>Name</td>
@@ -18,17 +18,31 @@
 				<td>Price</td>
 			</tr>
 		</thead>
-		<c:forEach items="${order.products}" var="prod">
-			<tbody>
+		<tbody>
+			<c:forEach items="${order.products}" var="prod">
 				<tr>
 					<td><c:out value="${prod.name}"></c:out></td>
 					<td><c:out value="${prod.number}"></c:out></td>
-					<td><c:out value="${prod.price / 100 * prod.number}"></c:out></td>
+					<td><c:out value="${prod.number * prod.price / 100}"></c:out></td>
 				</tr>		
-			</tbody>
-		</c:forEach>
+			</c:forEach>
+			<tr>
+				<td>Sum</td>
+				<td></td>
+				<td id="sum_price" ></td>
+			</tr>
+		</tbody>
 	</table>
 	<a href="pay/${order.id}">Pay Now!</a><br/>
 	<a href="cart">Back to cart</a>
+	
+	<script>
+		var sum = 0;
+		var table = document.getElementById("order_table");
+		for (var i = 1; i < table.rows.length; i++){
+			sum += Number(table.rows[i].cells[2].innerHTML);
+		}
+		document.getElementById("sum_price").innerHTML=sum;
+	</script>
 </body>
 </html>
