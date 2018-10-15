@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.intellibuy.entity.Order;
@@ -18,6 +19,7 @@ import com.intellibuy.service.JdbcService;
 import com.intellibuy.service.LoginService;
 import com.intellibuy.service.OrderService;
 import com.intellibuy.service.ProductService;
+import com.intellibuy.service.SearchService;
 
 @Controller
 public class ProductController {
@@ -34,7 +36,14 @@ public class ProductController {
 	@RequestMapping(value= {"product/list", "product/"})
 	public ModelAndView productListView() {
 		ModelAndView view = new ModelAndView("product/list");
-		view.addObject("products", productService.findAll());
+		view.addObject("products", productService.findAll().toArray());
+		return view;
+	}
+	
+	@RequestMapping("product/search")
+	public ModelAndView productSearchView(@RequestParam("search_prod_name") String searchProductName) {
+		ModelAndView view = new ModelAndView("product/list");
+		view.addObject("products", jdbcService.searchProduct(searchProductName));
 		return view;
 	}
 	

@@ -11,6 +11,10 @@
 </head>
 <body>
 	<h1>This is all exist products.</h1>
+	<form action="search">
+		Search:<input type="text" name="search_prod_name"/>
+		<input type="submit" value="Search"/>
+	</form>
 	<table border="1" id="prod_list">
 		<thead>
 			<tr>
@@ -33,8 +37,8 @@
 					<td><c:out value="${prod.stock}" /></td>
 					<td><c:out value="${prod.createSince}"></c:out></td>
 					<td><c:out value="${prod.updateSince}"></c:out></td>
-					<td><form action="./modify/${prod.id}"><input type="submit" value="Modify"/></form></td>
-					<td><form action="./delete/${prod.id}"><input type="submit" value="Delete"/></form></td>
+					<td><form action="modify/${prod.id}"><input type="submit" value="Modify"/></form></td>
+					<td><form action="delete/${prod.id}"><input type="submit" value="Delete"/></form></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -49,7 +53,7 @@
 	<c:if test="${msg != null }">
 		<c:out value="${msg }"></c:out><br/>
 	</c:if>
-	<a href=".">Back</a>
+	<a href="../">Back</a>
 	<script type="text/javascript">
 		var page;
 		function display(pageNo){

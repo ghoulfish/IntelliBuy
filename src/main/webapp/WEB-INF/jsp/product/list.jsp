@@ -9,6 +9,10 @@
 </head>
 <body>
 	<h1>Product list:</h1>
+	<form action="search" method="get">
+		Search: <input type="text" name="search_prod_name"/>
+		<input type="submit" value="Search"/>
+	</form>
 	<table border="1">
 		<thead>
 			<tr>

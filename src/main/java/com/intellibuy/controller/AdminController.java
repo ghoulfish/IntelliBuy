@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,13 +29,13 @@ public class AdminController {
 		return view;
 	}
 	
-	@RequestMapping("/admin/add")
+	@RequestMapping("/admin/product/add")
 	public ModelAndView addProductView() {
 		ModelAndView view = new ModelAndView("admin/add");
 		return view;
 	}
 	
-	@RequestMapping(value="/admin/add/check", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/product/add/check", method=RequestMethod.POST)
 	public ModelAndView addProductCheck(
 			@ModelAttribute Product product,
 			BindingResult res,
@@ -48,22 +49,29 @@ public class AdminController {
 			product.setId(jdbcService.findProductByName(product.getName()).getId());
 			reAttr.addFlashAttribute("err_msg", "Product exists");
 			reAttr.addFlashAttribute("productNew", product);
-			return new ModelAndView("redirect:/admin/modify/"+product.getId());
+			return new ModelAndView("redirect:/admin/product/modify/"+product.getId());
 		} else {
 			jdbcService.addProduct(product);
 			reAttr.addFlashAttribute("msg", "Add product successfully");
-			return new ModelAndView("redirect:/admin/add");
+			return new ModelAndView("redirect:/admin/product/add");
 		}
 	}
 	
-	@RequestMapping("/admin/show")
+	@RequestMapping(value= {"/admin/product/", "/admin/product/list"})
 	public ModelAndView showProductView() {
-		ModelAndView view = new ModelAndView("admin/show");
+		ModelAndView view = new ModelAndView("admin/product");
 		view.addObject("products", jdbcService.findAll(new Product()));
 		return view;
 	}
 	
-	@RequestMapping("/admin/modify/{id:[0-9]+}")
+	@RequestMapping("/admin/product/search")
+	public ModelAndView searchProduct(@RequestParam("search_prod_name") String searchProductName) {
+		ModelAndView view = new ModelAndView("admin/product");
+		view.addObject("products", jdbcService.searchProduct(searchProductName));
+		return view;
+	}
+	
+	@RequestMapping("/admin/product/modify/{id:[0-9]+}")
 	public ModelAndView modifyProductView(@PathVariable("id") String id) {
 		ModelAndView view = new ModelAndView("admin/modify");
 		Product product;
@@ -75,7 +83,7 @@ public class AdminController {
 		return view;
 	}
 	
-	@RequestMapping(value="/admin/modify/check", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/product/modify/check", method=RequestMethod.POST)
 	public ModelAndView modifyCheck(
 			@ModelAttribute Product productNew,
 			BindingResult res,
@@ -86,14 +94,14 @@ public class AdminController {
 			}
 		}
 		jdbcService.updateProduct(productNew);
-		return new ModelAndView("redirect:/admin/");
+		return new ModelAndView("redirect:/admin/product/");
 	}	
 	
-	@RequestMapping("/admin/delete/{id:[0-9]+}")
+	@RequestMapping("/admin/product/delete/{id:[0-9]+}")
 	public ModelAndView deleteProductById(@PathVariable("id") String id, RedirectAttributes reAttr) {
 		jdbcService.deleteProductById(new Integer(id));
 		reAttr.addFlashAttribute("msg", "Delete product successfully.");
-		return new ModelAndView("redirect:/admin/show");
+		return new ModelAndView("redirect:/admin/product/");
 	}
 	
 	@RequestMapping("/admin/orders/")

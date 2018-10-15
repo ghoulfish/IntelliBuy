@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -27,6 +28,8 @@ public class JdbcService {
 	
 	private AuthDataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	private SearchService searchService;
 	
 	public JdbcService() {
 		super();
@@ -295,6 +298,10 @@ public class JdbcService {
 		} else {
 			return customers.get(0).getPassword();
 		}
+	}
+	
+	public Product[] searchProduct(String searchProductName) {
+		return searchService.searchProduct(searchProductName);
 	}
 
 }
